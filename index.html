@@ -3979,7 +3979,7 @@ document.querySelectorAll('.subtabs .st-btn').forEach(btn => {
     nav.querySelectorAll('.st-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const section = nav.parentElement;
-    section.querySelectorAll(':scope > .panel').forEach(p => p.classList.remove('active'));
+    section.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     const target = document.getElementById(btn.dataset.tab);
     if (target) target.classList.add('active');
     window.scrollTo({top:60, behavior:'smooth'});
