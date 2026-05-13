@@ -3736,7 +3736,8 @@ function quizAdminLogout(){
 //
 // ▼▼▼ Apps Script 웹앱 URL을 여기에 붙여넣으세요 ▼▼▼
 // (위 시트에 바인딩된 Apps Script를 배포한 후 받은 /exec로 끝나는 URL)
-const GS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbx0abKxnseqEKAY5i6zGhmoeSPxwgma7iRBQ6JchJ1YYo7gmsjPGne7o_8b4x8iWnUi4Q/exec';// ※ URL이 비어있거나 작동하지 않으면 localStorage 폴백이 자동으로 사용됩니다.
+const GS_WEBAPP_URL = '';
+// ※ URL이 비어있거나 작동하지 않으면 localStorage 폴백이 자동으로 사용됩니다.
 //
 // 🔧 Apps Script 배포 방법:
 //  1) 위 시트(강의 통합 Q&A) 열기 → 확장 프로그램 → Apps Script
@@ -4320,6 +4321,8 @@ function calcTeacher() {
 }
 
 function calcDeduction() {
+  const _guard = document.getElementById('p_kd');
+  if(!_guard) return; // 해당 섹션이 없으면 조용히 종료
   const kd = parseInt(document.getElementById('p_kd').value)||0;
   const jj = parseInt(document.getElementById('p_jj').value)||0;
   const gb = parseInt(document.getElementById('p_gb').value)||0;
