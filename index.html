@@ -3736,8 +3736,7 @@ function quizAdminLogout(){
 //
 // ▼▼▼ Apps Script 웹앱 URL을 여기에 붙여넣으세요 ▼▼▼
 // (위 시트에 바인딩된 Apps Script를 배포한 후 받은 /exec로 끝나는 URL)
-const GS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbx0abKxnseqEKAY5i6zGhmoeSPxwgma7iRBQ6JchJ1YYo7gmsjPGne7o_8b4x8iWnUi4Q/exec';
-// ※ URL이 비어있거나 작동하지 않으면 localStorage 폴백이 자동으로 사용됩니다.
+const GS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbx0abKxnseqEKAY5i6zGhmoeSPxwgma7iRBQ6JchJ1YYo7gmsjPGne7o_8b4x8iWnUi4Q/exec';// ※ URL이 비어있거나 작동하지 않으면 localStorage 폴백이 자동으로 사용됩니다.
 //
 // 🔧 Apps Script 배포 방법:
 //  1) 위 시트(강의 통합 Q&A) 열기 → 확장 프로그램 → Apps Script
@@ -3764,7 +3763,7 @@ async function saveQuizEntry(entry){
   try {
     const res = await fetch(GS_WEBAPP_URL, {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
       body: JSON.stringify({action:'addQuiz', data: entry})
     });
     const json = await res.json();
@@ -3853,7 +3852,7 @@ async function deleteQuizSub(id){
   try {
     await fetch(GS_WEBAPP_URL, {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
       body: JSON.stringify({action:'deleteQuiz', id: id})
     });
   } catch(e) { console.log('Sheets 삭제 실패'); }
@@ -3882,7 +3881,7 @@ async function runLottery(){
   try {
     await fetch(GS_WEBAPP_URL, {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
       body: JSON.stringify({action:'setWinners', winners: winners.map(w=>w.id)})
     });
   } catch(e) { console.log('Sheets 당첨자 업데이트 실패'); }
@@ -4001,7 +4000,7 @@ function submitQuestion() {
   if(QA_WEBAPP_URL){
     fetch(QA_WEBAPP_URL, {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
       body: JSON.stringify({action:'addQA', data: newQA})
     }).then(r=>r.json()).then(j=>{ if(j.status==='ok') console.log('✅ QA Sheets 저장 성공'); })
       .catch(e=>console.log('⚠️ QA Sheets 저장 실패:', e.message));
@@ -4165,7 +4164,7 @@ async function approveQA(id) {
   if(QA_WEBAPP_URL){
     try {
       await fetch(QA_WEBAPP_URL, {
-        method:'POST', headers:{'Content-Type':'application/json'},
+        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
         body: JSON.stringify({action:'updateQA', id: id, answer: ans, status: 'approved'})
       });
     } catch(e){}
@@ -4182,7 +4181,7 @@ async function rejectQA(id) {
   if(QA_WEBAPP_URL){
     try {
       await fetch(QA_WEBAPP_URL, {
-        method:'POST', headers:{'Content-Type':'application/json'},
+        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
         body: JSON.stringify({action:'updateQA', id: id, answer: qas[idx].answer||'', status: 'rejected'})
       });
     } catch(e){}
@@ -4199,7 +4198,7 @@ async function saveAnswerOnly(id) {
   if(QA_WEBAPP_URL){
     try {
       await fetch(QA_WEBAPP_URL, {
-        method:'POST', headers:{'Content-Type':'application/json'},
+        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
         body: JSON.stringify({action:'updateQA', id: id, answer: ans, status: qas[idx].status})
       });
     } catch(e){}
@@ -4214,7 +4213,7 @@ async function deleteQA(id) {
   if(QA_WEBAPP_URL){
     try {
       await fetch(QA_WEBAPP_URL, {
-        method:'POST', headers:{'Content-Type':'application/json'},
+        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
         body: JSON.stringify({action:'deleteQA', id: id})
       });
     } catch(e){}
