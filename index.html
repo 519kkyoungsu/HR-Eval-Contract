@@ -141,6 +141,13 @@ label.check-item:hover{border-color:var(--accent);background:#fdf3f3}
 label.check-item.done{background:var(--paper-2);color:var(--muted)}
 label.check-item input[type="checkbox"]{flex-shrink:0;width:17px;height:17px;accent-color:var(--green);cursor:pointer;margin-top:2px}
 label.check-item .meta{font-size:11px;color:var(--muted);margin-top:3px}
+label.check-item .text{flex:1;min-width:0}
+label.check-item.done .meta{color:var(--muted)}
+.check-text{flex:1;min-width:0}
+.check-title{font-size:13px;font-weight:600;line-height:1.5}
+.check-meta{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+label.check-item.done .check-title{text-decoration:line-through;color:var(--muted)}
+label.check-item.done .check-meta{color:var(--line)}
 .tl{position:relative;padding-left:26px}
 .tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--ink)}
 .tl-item{position:relative;margin-bottom:16px;padding-bottom:13px;border-bottom:1px dashed var(--line)}
@@ -2379,21 +2386,43 @@ details>*:not(summary){padding:0 16px 14px}
 <div class="panel" id="e-checklist">
   <h2 class="sh">평정 업무 체크리스트</h2>
   <div style="text-align:right;margin-bottom:10px"><button class="btn" onclick="resetECheck()">↺ 체크 초기화</button></div>
+
   <div class="card">
-    <h3 class="ct"><span class="mk green"></span>✅ 1단계: 준비기 (11월 말 ~ 12월)</h3>
-    <div id="check_prep"></div>
+    <h3 class="ct"><span class="mk green"></span>✅ ① 평정 준비기 점검</h3>
+    <label class="check-item" for="ec_p0"><input type="checkbox" id="ec_p0" data-key="ec_p0"><div class="check-text"><div class="check-title">평정 대상자 명단 확정 (자격/직위별 분리)</div><div class="check-meta">2개월 이상 근무자만 — 휴직·직위해제 등 2개월 미만 시 제외</div></div></label>
+    <label class="check-item" for="ec_p1"><input type="checkbox" id="ec_p1" data-key="ec_p1"><div class="check-text"><div class="check-title">교사 자기실적 평가서 안내 및 양식 배포</div><div class="check-meta">서식 1.3.1 — 작성 기간 및 제출 방법 사전 안내</div></div></label>
+    <label class="check-item" for="ec_p2"><input type="checkbox" id="ec_p2" data-key="ec_p2"><div class="check-text"><div class="check-title">교감 본인 자기실적 평가서 작성</div><div class="check-meta">서식 1.1.1, 1면 분량 — 평정자(학교장)에게 제출</div></div></label>
+    <label class="check-item" for="ec_p3"><input type="checkbox" id="ec_p3" data-key="ec_p3"><div class="check-text"><div class="check-title">다면평가관리위원회 구성 (3~7명)</div><div class="check-meta">확인자(교장)가 평가대상자의 동료 교사 중 선정</div></div></label>
+    <label class="check-item" for="ec_p4"><input type="checkbox" id="ec_p4" data-key="ec_p4"><div class="check-text"><div class="check-title">다면평가자 선정 (대상자 수에 따라 3~8명 이상)</div><div class="check-meta">서약서 1.2.5 받기 — 육아시간 등 불이익 없도록 유의</div></div></label>
+    <label class="check-item" for="ec_p5"><input type="checkbox" id="ec_p5" data-key="ec_p5"><div class="check-text"><div class="check-title">다면평가 사전교육 실시</div><div class="check-meta">의의·일정·절차·보안·강제배분비율 안내</div></div></label>
   </div>
+
   <div class="card">
-    <h3 class="ct"><span class="mk green"></span>✅ 2단계: 다면평가 실시</h3>
-    <div id="check_multi"></div>
+    <h3 class="ct"><span class="mk green"></span>✅ ② 다면평가 실시 점검</h3>
+    <label class="check-item" for="ec_m0"><input type="checkbox" id="ec_m0" data-key="ec_m0"><div class="check-text"><div class="check-title">정성평가 평가표 배부 (서식 1.2.1)</div><div class="check-meta">배점: 태도10·학습40·생활30·전문성5·업무15 → 합계×0.8 환산 (만점 80점 입력!)</div></div></label>
+    <label class="check-item" for="ec_m1"><input type="checkbox" id="ec_m1" data-key="ec_m1"><div class="check-text"><div class="check-title">정량평가 자료 수합 및 위원 심의</div><div class="check-meta">20점 만점 — 대상자 제출 자료를 위원이 심의하여 점수 인정</div></div></label>
+    <label class="check-item" for="ec_m2"><input type="checkbox" id="ec_m2" data-key="ec_m2"><div class="check-text"><div class="check-title">강제 배분 확인 (수30·우40·미20·양10 비율)</div><div class="check-meta">동점자 소수 첫째자리로 회피 — 각 평가자도 반드시 배분 준수</div></div></label>
+    <label class="check-item" for="ec_m3"><input type="checkbox" id="ec_m3" data-key="ec_m3"><div class="check-text"><div class="check-title">4인 이상 시 최고/최저 1개씩 제외 후 평균</div><div class="check-meta">평균 = 합계 ÷ 유효평가자수 (소수 셋째 자리에서 반올림)</div></div></label>
+    <label class="check-item" for="ec_m4"><input type="checkbox" id="ec_m4" data-key="ec_m4"><div class="check-text"><div class="check-title">다면평가 합산표 작성 (서식 1.2)</div><div class="check-meta">정성×32/80 + 정량×8/20 = 환산점 (최대 40점)</div></div></label>
+    <label class="check-item" for="ec_m5"><input type="checkbox" id="ec_m5" data-key="ec_m5"><div class="check-text"><div class="check-title">서약서 보관 (서식 1.2.5)</div><div class="check-meta">학교 보관 — 비밀 유지 확인</div></div></label>
   </div>
+
   <div class="card">
-    <h3 class="ct"><span class="mk green"></span>✅ 3단계: 근무성적 평정</h3>
-    <div id="check_work"></div>
+    <h3 class="ct"><span class="mk green"></span>✅ ③ 근무성적 평정 점검</h3>
+    <label class="check-item" for="ec_w0"><input type="checkbox" id="ec_w0" data-key="ec_w0"><div class="check-text"><div class="check-title">교사 자기실적 평가서 수합 및 검토</div><div class="check-meta">서식 1.3.1 — 기한 내 제출 확인</div></div></label>
+    <label class="check-item" for="ec_w1"><input type="checkbox" id="ec_w1" data-key="ec_w1"><div class="check-text"><div class="check-title">평정자(교감)로서 교사 평정 작성</div><div class="check-meta">서식 1.3, 환산점 = 평정점×0.2 — 자기실적평가서 참작</div></div></label>
+    <label class="check-item" for="ec_w2"><input type="checkbox" id="ec_w2" data-key="ec_w2"><div class="check-text"><div class="check-title">확인자(교장) 평정 협조</div><div class="check-meta">서식 1.3, 환산점 = 평정점×0.4</div></div></label>
+    <label class="check-item" for="ec_w3"><input type="checkbox" id="ec_w3" data-key="ec_w3"><div class="check-text"><div class="check-title">강제 배분 비율 준수 (수30·우40·미20·양10)</div><div class="check-meta">양 평정 시 6개월 승급 제한 — 신중하게 판단</div></div></label>
+    <label class="check-item" for="ec_w4"><input type="checkbox" id="ec_w4" data-key="ec_w4"><div class="check-text"><div class="check-title">4대 비위·음주운전 해당자 상위 30% 제외</div><div class="check-meta">상위 30%(수 평어) 근무성적 부여 금지</div></div></label>
+    <label class="check-item" for="ec_w5"><input type="checkbox" id="ec_w5" data-key="ec_w5"><div class="check-text"><div class="check-title">감점 사유 점검 (행정처분·징계)</div><div class="check-meta">주의 1건 감점 없음 / 경고 -0.3 / 불문경고 -0.5 / 견책 -1 / 감봉 -2 / 정직 -3</div></div></label>
   </div>
+
   <div class="card">
-    <h3 class="ct"><span class="mk green"></span>✅ 4단계: 제출 및 마무리</h3>
-    <div id="check_submit"></div>
+    <h3 class="ct"><span class="mk green"></span>✅ ④ 제출 점검</h3>
+    <label class="check-item" for="ec_s0"><input type="checkbox" id="ec_s0" data-key="ec_s0"><div class="check-text"><div class="check-title">근무성적 평정결과 보고서 (서식 1) - 자격/직위별 분리 작성</div><div class="check-meta">비율·인원수 일치 확인 — 복수 교감 배치 시 반드시 제출</div></div></label>
+    <label class="check-item" for="ec_s1"><input type="checkbox" id="ec_s1" data-key="ec_s1"><div class="check-text"><div class="check-title">교사 합산표 (서식 1.4) 제출</div><div class="check-meta">다면평가(40%)+평정자(20%)+확인자(40%) 합산 확인</div></div></label>
+    <label class="check-item" for="ec_s2"><input type="checkbox" id="ec_s2" data-key="ec_s2"><div class="check-text"><div class="check-title">교감 평정표 (서식 1.1) - 평정자 행만 작성</div><div class="check-meta">확인자 행 비워둠 — 총점·조정점·순위 기재 금지</div></div></label>
+    <label class="check-item" for="ec_s3"><input type="checkbox" id="ec_s3" data-key="ec_s3"><div class="check-text"><div class="check-title">서식 보관 (학교보관용 서식 1.2.1~1.2.5)</div><div class="check-meta">5년 이상 보관 권장 — 봉인·인비 처리 후 제출</div></div></label>
   </div>
 </div>
 
@@ -3265,12 +3294,15 @@ details>*:not(summary){padding:0 16px 14px}
         <div id="qa_login_err" style="color:var(--accent);font-size:12px;margin-top:8px"></div>
       </div>
       <div class="admin-panel-inner" id="quiz_admin_panel">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
           <h4 style="font-family:'Gowun Batang',serif">📊 제출 결과 관리</h4>
           <div style="display:flex;gap:8px">
             <button class="btn" style="font-size:12px;padding:6px 12px" onclick="loadQuizSubmissions()">🔄 새로고침</button>
             <button class="btn" style="font-size:12px;padding:6px 12px" onclick="quizAdminLogout()">로그아웃</button>
           </div>
+        </div>
+        <div id="sheets_status_bar" style="font-size:12px;padding:8px 12px;margin-bottom:12px;border-radius:0;border-left:4px solid var(--muted);background:var(--paper-2);color:var(--muted)">
+          📦 현재 localStorage 모드로 동작 중 — Google Sheets 연동을 위해 Apps Script 웹앱 URL을 설정하세요.
         </div>
         <div class="admin-stat-grid">
           <div class="sc"><div class="sl">총 제출자</div><div class="sv" id="stat_total">0</div><div class="sd">명</div></div>
@@ -3568,7 +3600,7 @@ function showResult(){
   document.getElementById('submitBtn').disabled=false;
 }
 
-function submitResult(){
+async function submitResult(){
   const total=qScores[0]+qScores[1]+qScores[2];
   const entry={
     id:'QZ_'+Date.now(),
@@ -3580,7 +3612,10 @@ function submitResult(){
     eligible:total>=27,
     winner:false
   };
-  saveQuizEntry(entry);
+  // 저장 버튼 비활성화 (중복 제출 방지)
+  const btn=document.getElementById('submitBtn');
+  if(btn){btn.disabled=true;btn.textContent='저장 중...';}
+  await saveQuizEntry(entry);
   document.getElementById('submit_section').style.display='none';
   const msg=document.getElementById('submitted_msg');
   msg.style.display='block';
@@ -3604,6 +3639,21 @@ function quizAdminLogin(){
   if(document.getElementById('qa_pw').value===QUIZ_ADMIN_PW){
     document.getElementById('quiz_admin_login').style.display='none';
     document.getElementById('quiz_admin_panel').classList.add('show');
+    // Sheets 연동 상태 표시
+    const bar = document.getElementById('sheets_status_bar');
+    if(bar){
+      if(GS_WEBAPP_URL){
+        bar.style.borderLeftColor='var(--green)';
+        bar.style.background='#eaf3ea';
+        bar.style.color='var(--green)';
+        bar.textContent='✅ Google Sheets 연동 활성화 — 스프레드시트에서도 데이터를 확인할 수 있습니다.';
+      } else {
+        bar.style.borderLeftColor='#b85c00';
+        bar.style.background='#fdf6e7';
+        bar.style.color='#b85c00';
+        bar.innerHTML='⚠️ localStorage 모드 동작 중 — <strong>이 기기에서만</strong> 데이터가 저장됩니다. Sheets 연동을 설정하려면 Apps Script 웹앱 URL을 코드의 GS_WEBAPP_URL에 입력하세요.';
+      }
+    }
     loadQuizSubmissions();
   }else{document.getElementById('qa_login_err').textContent='비밀번호가 틀렸습니다.';}
 }
@@ -3613,7 +3663,8 @@ function quizAdminLogout(){
   document.getElementById('qa_pw').value='';
 }
 // ═══ Google Sheets 연동 퀴즈 저장 시스템 ═══
-const GS_WEBAPP_URL = 'AKfycbz7SesjqD4TWvromxyoVeZh2J4cdg034TneCKFlfC7-Ky1avMdYtqTgJEDwBXlX_RI6';
+// ▼▼▼ Apps Script 웹앱 URL 입력란 — 배포 후 /exec로 끝나는 URL 붙여넣기 ▼▼▼
+const GS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyBFUqO2jTyz0XOUOwJOIqM_pQGa9pgBiyFQVIPj8JpGeCX8myvkAxZ7lcPGUQiqVAR/exec';
 // ※ 위 URL이 작동하지 않으면 아래 localStorage 폴백이 자동으로 사용됩니다.
 // Google Apps Script 배포 방법: 스프레드시트 열기 → 확장프로그램 → Apps Script → 배포 → 웹앱
 
@@ -3623,12 +3674,15 @@ function saveQuizSubsLocal(arr){try{localStorage.setItem('gyeongnam_quiz_subs',J
 
 // 제출 저장 (Sheets + localStorage 동시)
 async function saveQuizEntry(entry){
-  // localStorage에 저장 (폴백)
+  // 1. localStorage에 즉시 저장 (항상 성공, 중복 방지)
   const local = getQuizSubsLocal();
-  local.push(entry);
-  saveQuizSubsLocal(local);
+  if(!local.find(s=>String(s.id)===String(entry.id))){
+    local.push(entry);
+    saveQuizSubsLocal(local);
+  }
   
-  // Google Sheets에 저장 시도
+  // 2. Google Sheets에 저장 시도 (URL 설정된 경우만)
+  if(!GS_WEBAPP_URL) return;
   try {
     const res = await fetch(GS_WEBAPP_URL, {
       method:'POST',
@@ -3636,9 +3690,10 @@ async function saveQuizEntry(entry){
       body: JSON.stringify({action:'addQuiz', data: entry})
     });
     const json = await res.json();
-    if(json.status === 'ok') console.log('Sheets 저장 성공');
+    if(json.status === 'ok') console.log('✅ Sheets 저장 성공');
+    else console.log('⚠️ Sheets 응답 오류:', json.message);
   } catch(e) {
-    console.log('Sheets 저장 실패, localStorage만 사용:', e.message);
+    console.log('⚠️ Sheets 저장 실패 (localStorage 저장됨):', e.message);
   }
 }
 
@@ -3648,22 +3703,29 @@ async function loadQuizSubmissions(){
   if(listDiv) listDiv.innerHTML = '<div class="loading-msg">⏳ 제출 목록을 불러오는 중...</div>';
   
   let subs = [];
+  let fromSheets = false;
   
-  // Sheets에서 로드 시도
-  try {
-    const res = await fetch(GS_WEBAPP_URL + '?action=getQuiz&t=' + Date.now());
-    const json = await res.json();
-    if(json.status === 'ok' && Array.isArray(json.data)) {
-      subs = json.data;
-      // Sheets 데이터를 localStorage와 동기화
-      saveQuizSubsLocal(subs);
-      console.log(`Sheets에서 ${subs.length}건 로드`);
-    } else {
-      throw new Error('Sheets 응답 오류');
+  // Sheets에서 로드 시도 (URL 설정된 경우)
+  if(GS_WEBAPP_URL){
+    try {
+      const res = await fetch(GS_WEBAPP_URL + '?action=getQuiz&t=' + Date.now());
+      const json = await res.json();
+      if(json.status === 'ok' && Array.isArray(json.data)){
+        subs = json.data;
+        fromSheets = true;
+        // Sheets 데이터를 localStorage와 동기화
+        saveQuizSubsLocal(subs);
+        console.log('✅ Sheets에서 ' + subs.length + '건 로드');
+      }
+    } catch(e) {
+      console.log('⚠️ Sheets 로드 실패, localStorage 사용:', e.message);
     }
-  } catch(e) {
-    console.log('Sheets 로드 실패, localStorage 사용:', e.message);
+  }
+  
+  // Sheets 실패하거나 URL 없으면 localStorage 사용
+  if(!fromSheets){
     subs = getQuizSubsLocal();
+    console.log('📦 localStorage에서 ' + subs.length + '건 로드');
   }
   
   renderQuizSubmissions(subs);
@@ -3682,7 +3744,13 @@ function renderQuizSubmissions(subs){
   
   const listDiv = document.getElementById('quiz_sub_list');
   if(!listDiv) return;
-  if(!subs.length){listDiv.innerHTML='<div class="empty-msg">제출자가 없습니다.<br><small style="color:var(--muted)">Google Sheets 연동이 안 된 경우 퀴즈 답안 제출 후 새로고침하세요.</small></div>';return;}
+  if(!subs.length){
+    const sheetsMsg = GS_WEBAPP_URL 
+      ? '📊 Google Sheets에 데이터가 없거나 연동 중입니다.' 
+      : '📦 아직 제출된 답안이 없습니다. 퀴즈를 풀고 결과를 제출하면 여기에 표시됩니다.';
+    listDiv.innerHTML='<div class="empty-msg">제출자가 없습니다.<br><small style="color:var(--muted)">'+sheetsMsg+'</small></div>';
+    return;
+  }
   const sorted=[...subs].sort((a,b)=>(+b.score||0)-(+a.score||0));
   listDiv.innerHTML=sorted.map((s,i)=>`
     <div class="sub-item">
@@ -3764,7 +3832,10 @@ function switchQuizTab(name,btn){
 
 // ═══ SHEETS API 설정 ═══
 const SHEET_ID = '1RBaKw3fx_ZzkGgOrsjTJjXJ2LOU6T6lR4O-D43-ovMc';
-const SCRIPT_URL = ''; // Google Apps Script Web App URL (배포 후 입력)
+// ═══ Q&A Google Sheets 연동 설정 ═══
+// 시트 ID: 1RBaKw3fx_ZzkGgOrsjTJjXJ2LOU6T6lR4O-D43-ovMc
+// Apps Script 배포 후 아래 URL 입력 (퀴즈용 GS_WEBAPP_URL과 동일하거나 별도 배포 가능)
+const QA_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyBFUqO2jTyz0XOUOwJOIqM_pQGa9pgBiyFQVIPj8JpGeCX8myvkAxZ7lcPGUQiqVAR/exec';
 
 // ═══ 로컬 스토리지 기반 Q&A 데이터 관리 ═══
 // Google Sheets와 연동하려면 Apps Script 배포 URL이 필요합니다.
@@ -3848,12 +3919,14 @@ function submitQuestion() {
   saveQAs(qas);
 
   // 구글 시트 연동 시도 (Apps Script URL이 있을 경우)
-  if (SCRIPT_URL) {
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify(newQA),
-      headers: {'Content-Type': 'application/json'}
-    }).catch(()=>{});
+  // Sheets 저장 시도
+  if(QA_WEBAPP_URL){
+    fetch(QA_WEBAPP_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'addQA', data: newQA})
+    }).then(r=>r.json()).then(j=>{ if(j.status==='ok') console.log('✅ QA Sheets 저장 성공'); })
+      .catch(e=>console.log('⚠️ QA Sheets 저장 실패:', e.message));
   }
 
   document.getElementById('q_school').value = '';
@@ -3870,17 +3943,38 @@ function filterPublicQA(filter) {
   document.querySelectorAll('[id^="f_"]').forEach(b => b.style.background = '');
   loadPublicQA();
 }
-function loadPublicQA() {
+async function loadPublicQA() {
   const listDiv = document.getElementById('public_qa_list');
-  const qas = getQAs().filter(q => q.status === 'approved');
-  const filtered = currentFilter === 'all' ? qas : qas.filter(q => q.part === currentFilter);
+  if(!listDiv) return;
+  listDiv.innerHTML = '<div class="loading-msg">⏳ Q&A를 불러오는 중...</div>';
+  
+  let qas = [];
+  let fromSheets = false;
+  
+  // Sheets에서 로드 시도
+  if(QA_WEBAPP_URL){
+    try {
+      const res = await fetch(QA_WEBAPP_URL + '?action=getQA&t=' + Date.now());
+      const json = await res.json();
+      if(json.status === 'ok' && Array.isArray(json.data)){
+        qas = json.data;
+        fromSheets = true;
+        saveQAs(qas); // 로컬에도 동기화
+        console.log('✅ QA Sheets에서 ' + qas.length + '건 로드');
+      }
+    } catch(e){ console.log('⚠️ QA Sheets 로드 실패:', e.message); }
+  }
+  if(!fromSheets) qas = getQAs();
+  
+  const approved = qas.filter(q => q.status === 'approved');
+  const filtered = currentFilter === 'all' ? approved : approved.filter(q => q.part === currentFilter);
 
   if (filtered.length === 0) {
     listDiv.innerHTML = '<div class="empty-msg">📭 아직 공개된 Q&A가 없습니다.<br>질문을 제출하면 교감 선생님이 검토 후 답변을 달아 공개합니다.</div>';
     return;
   }
 
-  listDiv.innerHTML = filtered.reverse().map((q, i) => `
+  listDiv.innerHTML = [...filtered].reverse().map((q, i) => `
     <div class="pub-qa-card">
       <div class="pq-head">
         <span class="pq-badge">Q${filtered.length - i}</span>
@@ -3916,9 +4010,27 @@ function adminLogout() {
 }
 
 // ═══ 관리자 Q&A 목록 ═══
-function loadAdminQA() {
+async function loadAdminQA() {
   const listDiv = document.getElementById('admin_qa_list');
-  const qas = getQAs();
+  if(!listDiv) return;
+  listDiv.innerHTML = '<div class="loading-msg">⏳ 질문 목록을 불러오는 중...</div>';
+  
+  let qas = [];
+  let fromSheets = false;
+  
+  if(QA_WEBAPP_URL){
+    try {
+      const res = await fetch(QA_WEBAPP_URL + '?action=getQA&t=' + Date.now());
+      const json = await res.json();
+      if(json.status === 'ok' && Array.isArray(json.data)){
+        qas = json.data;
+        fromSheets = true;
+        saveQAs(qas);
+      }
+    } catch(e){ console.log('⚠️ QA 관리 Sheets 로드 실패:', e.message); }
+  }
+  if(!fromSheets) qas = getQAs();
+
   if (qas.length === 0) {
     listDiv.innerHTML = '<div class="empty-msg">📭 제출된 질문이 없습니다.</div>';
     return;
@@ -3930,10 +4042,10 @@ function loadAdminQA() {
   listDiv.innerHTML = [...qas].reverse().map((q) => `
     <div class="admin-q-item" id="aqitem_${q.id}">
       <div class="aq-meta">
-        <span class="status-badge ${statusClass[q.status]}">${statusLabel[q.status]}</span>
-        &nbsp;${q.school} · ${q.part} · ${q.time}
+        <span class="status-badge ${statusClass[q.status]||'status-pending'}">${statusLabel[q.status]||'대기중'}</span>
+        &nbsp;${escHtml(q.school||'')} · ${escHtml(q.part||'')} · ${q.time||''}
       </div>
-      <div class="aq-q">Q: ${escHtml(q.question)}</div>
+      <div class="aq-q">Q: ${escHtml(q.question||'')}</div>
       <textarea id="ans_${q.id}" placeholder="답변을 입력하세요...">${escHtml(q.answer||'')}</textarea>
       <div class="aq-actions">
         <button class="btn btn-teal" style="font-size:12px;padding:7px 14px" onclick="approveQA('${q.id}')">✅ 승인·공개</button>
@@ -3945,7 +4057,7 @@ function loadAdminQA() {
   `).join('');
 }
 
-function approveQA(id) {
+async function approveQA(id) {
   const qas = getQAs();
   const idx = qas.findIndex(q => q.id === id);
   if (idx < 0) return;
@@ -3954,30 +4066,64 @@ function approveQA(id) {
   qas[idx].answer = ans;
   qas[idx].status = 'approved';
   saveQAs(qas);
+  // Sheets 업데이트
+  if(QA_WEBAPP_URL){
+    try {
+      await fetch(QA_WEBAPP_URL, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({action:'updateQA', id: id, answer: ans, status: 'approved'})
+      });
+    } catch(e){}
+  }
   loadAdminQA();
   alert('✅ 승인되어 공개 게시판에 표시됩니다.');
 }
-function rejectQA(id) {
+async function rejectQA(id) {
   const qas = getQAs();
   const idx = qas.findIndex(q => q.id === id);
   if (idx < 0) return;
   qas[idx].status = 'rejected';
   saveQAs(qas);
+  if(QA_WEBAPP_URL){
+    try {
+      await fetch(QA_WEBAPP_URL, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({action:'updateQA', id: id, answer: qas[idx].answer||'', status: 'rejected'})
+      });
+    } catch(e){}
+  }
   loadAdminQA();
 }
-function saveAnswerOnly(id) {
+async function saveAnswerOnly(id) {
   const qas = getQAs();
   const idx = qas.findIndex(q => q.id === id);
   if (idx < 0) return;
-  qas[idx].answer = document.getElementById('ans_' + id).value;
+  const ans = document.getElementById('ans_' + id).value;
+  qas[idx].answer = ans;
   saveQAs(qas);
+  if(QA_WEBAPP_URL){
+    try {
+      await fetch(QA_WEBAPP_URL, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({action:'updateQA', id: id, answer: ans, status: qas[idx].status})
+      });
+    } catch(e){}
+  }
   alert('💾 저장되었습니다. (공개 상태는 변경되지 않음)');
 }
-function deleteQA(id) {
+async function deleteQA(id) {
   if (!confirm('이 질문을 완전히 삭제하시겠습니까?')) return;
   let qas = getQAs();
   qas = qas.filter(q => q.id !== id);
   saveQAs(qas);
+  if(QA_WEBAPP_URL){
+    try {
+      await fetch(QA_WEBAPP_URL, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({action:'deleteQA', id: id})
+      });
+    } catch(e){}
+  }
   loadAdminQA();
 }
 
@@ -4195,34 +4341,34 @@ function toggleQA(qEl) {
 // ═══ 평정 체크리스트 ═══
 const eCheckData = {
   check_prep:[
-    {t:'평정 대상자 명단 확정 (자격/직위별 분리)',m:'2개월 이상 근무자만'},
-    {t:'교사 자기실적 평가서 안내 및 양식 배포',m:'서식 1.3.1'},
-    {t:'교감 본인 자기실적 평가서 작성',m:'서식 1.1.1, 1면 분량'},
-    {t:'다면평가관리위원회 구성 (3~7명)',m:'확인자가 동료교사 중 선정'},
-    {t:'다면평가자 선정 (대상자 수에 따라 3~8명 이상)',m:'서약서 1.2.5 받기'},
-    {t:'다면평가 사전교육 실시',m:'의의·일정·절차·보안'},
+    {t:'평정 대상자 명단 확정 (자격/직위별 분리)',m:'2개월 이상 근무자만 — 휴직·직위해제 등 2개월 미만 시 제외'},
+    {t:'교사 자기실적 평가서 안내 및 양식 배포',m:'서식 1.3.1 — 작성 기간 및 제출 방법 사전 안내'},
+    {t:'교감 본인 자기실적 평가서 작성',m:'서식 1.1.1, 1면 분량 — 평정자(학교장)에게 제출'},
+    {t:'다면평가관리위원회 구성 (3~7명)',m:'확인자(교장)가 평가대상자의 동료 교사 중 선정'},
+    {t:'다면평가자 선정 (대상자 수에 따라 3~8명 이상)',m:'서약서 1.2.5 받기 — 육아시간 등 불이익 없도록 유의'},
+    {t:'다면평가 사전교육 실시',m:'의의·일정·절차·보안·강제배분비율 안내'},
   ],
   check_multi:[
-    {t:'정성평가 평가표 배부 (서식 1.2.1)',m:'배점: 태도10·학습40·생활30·전문성5·업무15 (100점→80점 환산)'},
-    {t:'정량평가 자료 수합 및 위원 심의',m:'20점 만점'},
-    {t:'강제 배분 확인 (수30·우40·미20·양10 비율)',m:'동점자 소수 첫째자리로 회피'},
-    {t:'4인 이상 시 최고/최저 1개씩 제외 후 평균',m:'평균 = 합계 ÷ 유효평가자수'},
-    {t:'다면평가 합산표 작성 (서식 1.2)',m:'정성×32/80 + 정량×8/20 = 환산점(최대40점)'},
-    {t:'서약서 보관 (서식 1.2.5)',m:'학교 보관'},
+    {t:'정성평가 평가표 배부 (서식 1.2.1)',m:'배점: 태도10·학습40·생활30·전문성5·업무15 → 합계×0.8 환산 (만점 80점 입력!)'},
+    {t:'정량평가 자료 수합 및 위원 심의',m:'20점 만점 — 대상자 제출 자료를 위원이 심의하여 점수 인정'},
+    {t:'강제 배분 확인 (수30·우40·미20·양10 비율)',m:'동점자 소수 첫째자리로 회피 — 각 평가자도 반드시 배분 준수'},
+    {t:'4인 이상 시 최고/최저 1개씩 제외 후 평균',m:'평균 = 합계 ÷ 유효평가자수 (소수 셋째 자리에서 반올림)'},
+    {t:'다면평가 합산표 작성 (서식 1.2)',m:'정성×32/80 + 정량×8/20 = 환산점 (최대 40점)'},
+    {t:'서약서 보관 (서식 1.2.5)',m:'학교 보관 — 비밀 유지 확인'},
   ],
   check_work:[
-    {t:'교사 자기실적 평가서 수합 및 검토',m:'서식 1.3.1'},
-    {t:'평정자(교감)로서 교사 평정 작성',m:'서식 1.3, 환산점 = 평정점×0.2'},
+    {t:'교사 자기실적 평가서 수합 및 검토',m:'서식 1.3.1 — 기한 내 제출 확인'},
+    {t:'평정자(교감)로서 교사 평정 작성',m:'서식 1.3, 환산점 = 평정점×0.2 — 자기실적평가서 참작'},
     {t:'확인자(교장) 평정 협조',m:'서식 1.3, 환산점 = 평정점×0.4'},
-    {t:'강제 배분 비율 준수 (수30·우40·미20·양10)',m:''},
-    {t:'4대 비위·음주운전 해당자 상위 30% 제외',m:''},
-    {t:'감점 사유 점검 (행정처분·징계)',m:'주의 1건은 감점 없음'},
+    {t:'강제 배분 비율 준수 (수30·우40·미20·양10)',m:'양 평정 시 6개월 승급 제한 — 신중하게 판단'},
+    {t:'4대 비위·음주운전 해당자 상위 30% 제외',m:'상위 30%(수 평어) 근무성적 부여 금지'},
+    {t:'감점 사유 점검 (행정처분·징계)',m:'주의 1건은 감점 없음 / 경고 -0.3 / 불문경고 -0.5 / 견책 -1 / 감봉 -2 / 정직 -3'},
   ],
   check_submit:[
-    {t:'근무성적 평정결과 보고서 (서식 1) - 자격/직위별 분리 작성',m:'비율·인원수 일치 확인'},
-    {t:'교사 합산표 (서식 1.4) 제출',m:''},
-    {t:'교감 평정표 (서식 1.1) - 평정자 행만 작성',m:'확인자 행 비워둠'},
-    {t:'서식 보관 (학교보관용 서식 1.2.1~1.2.5)',m:'5년 이상 보관 권장'},
+    {t:'근무성적 평정결과 보고서 (서식 1) - 자격/직위별 분리 작성',m:'비율·인원수 일치 확인 — 복수 교감 배치 시 반드시 제출'},
+    {t:'교사 합산표 (서식 1.4) 제출',m:'다면평가(40%)+평정자(20%)+확인자(40%) 합산 확인'},
+    {t:'교감 평정표 (서식 1.1) - 평정자 행만 작성',m:'확인자 행 비워둠 — 총점·조정점·순위 기재 금지'},
+    {t:'서식 보관 (학교보관용 서식 1.2.1~1.2.5)',m:'5년 이상 보관 권장 — 봉인·인비 처리 후 제출'},
   ]
 };
 
@@ -4252,15 +4398,30 @@ function buildECheckLists() {
 }
 function resetECheck() {
   if (!confirm('평정 체크리스트를 모두 초기화하시겠습니까?')) return;
-  document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
-    cb.checked = false; cb.closest('.check-item').classList.remove('done');
+  document.querySelectorAll('#e-checklist .check-item input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+    cb.closest('.check-item').classList.remove('done');
     try{localStorage.removeItem('echk_'+cb.dataset.key);}catch(e){}
+  });
+}
+
+// 정적 체크리스트 이벤트 바인딩
+function initStaticECheck() {
+  document.querySelectorAll('#e-checklist .check-item input[type="checkbox"]').forEach(cb => {
+    const k = cb.dataset.key;
+    try { if (localStorage.getItem('echk_'+k)==='1') { cb.checked=true; cb.closest('.check-item').classList.add('done'); } } catch(e){}
+    cb.addEventListener('change', () => {
+      const item = cb.closest('.check-item');
+      if (cb.checked) { item.classList.add('done'); try{localStorage.setItem('echk_'+k,'1');}catch(e){} }
+      else { item.classList.remove('done'); try{localStorage.removeItem('echk_'+k);}catch(e){} }
+    });
   });
 }
 
 // ═══ INIT ═══
 calcVice(); calcTeacher(); calcDeduction(); calcMulti();
 buildECheckLists();
+initStaticECheck();
 updatePCheckProgress(); updateCCheckProgress();
 // 공개 Q&A 초기 로드
 setTimeout(loadPublicQA, 100);
