@@ -1419,11 +1419,11 @@ details>*:not(summary){padding:0 16px 14px}
     </div>
   </div>
 
-  <div class="card">
+<div class="card">
     <h3 class="ct"><span class="mk gold"></span>🔢 평정점 계산기</h3>
     <div class="g2">
       <div>
-        <div class="ig"><label>근무 기간 (연 단위)</label><input type="number" id="sc_year" step="0.1" min="0" max="5" value="3" oninput="calcTransferScore()"></div>
+        <div class="ig"><label>근무 기간 (연 단위, 소수 가능)</label><input type="number" id="sc_year" step="0.1" min="0" max="5" value="3" oninput="calcTransferScore()"></div>
         <div class="ig"><label>급지 선택</label>
           <select id="sc_grade" onchange="calcTransferScore()">
             <option value="4.0">가급지 (4.0점)</option>
@@ -1438,10 +1438,42 @@ details>*:not(summary){padding:0 16px 14px}
         <div class="ig"><label>담임교사 경력 (연)</label><input type="number" id="sc_homeroom" step="0.1" min="0" max="5" value="0" oninput="calcTransferScore()"></div>
         <div class="ig"><label>부장교사 경력 (연)</label><input type="number" id="sc_head" step="0.1" min="0" max="5" value="0" oninput="calcTransferScore()"></div>
         <div class="ig"><label>가산점 합계</label><input type="number" id="sc_bonus" step="0.1" min="0" max="5" value="0" oninput="calcTransferScore()"></div>
+
+        <div style="background:var(--paper-2);border:1.5px solid var(--gold);padding:14px;margin-top:10px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);font-weight:700;letter-spacing:1.5px;margin-bottom:10px">근무경력부가점 설정</div>
+          <div class="ig">
+            <label>전입 기준</label>
+            <select id="sc_transfer_date" onchange="calcTransferScore()">
+              <option value="before">2025.3.1. 이전 전입 (최근 3년 초과 5년: 연 2.0점 누가)</option>
+              <option value="after">2025.3.1. 이후 전입 (근속연수별 차등)</option>
+            </select>
+          </div>
+          <div id="sc_before_wrap">
+            <div class="ig">
+              <label>3년 초과 ~ 5년 이하 기간 (연, 최대 2년)</label>
+              <input type="number" id="sc_extra_before" step="0.1" min="0" max="2" value="0" oninput="calcTransferScore()">
+              <small>3년 초과분에 대해 연 2.0점 누가 (상한 4.0점)</small>
+            </div>
+          </div>
+          <div id="sc_after_wrap" style="display:none">
+            <div class="ig">
+              <label>현임교 근속 연수 선택 (2025.3.1. 이후 전입자)</label>
+              <select id="sc_after_years" onchange="calcTransferScore()">
+                <option value="0">1년 이하 (부가점 없음)</option>
+                <option value="1">2년 (1점)</option>
+                <option value="3">3년 (3점)</option>
+                <option value="6">4년 (6점)</option>
+                <option value="9">5년 (9점)</option>
+              </select>
+              <small>1년 초과분부터 차등 부여 (2년→1점, 3년→3점, 4년→6점, 5년→9점 누가)</small>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
         <div class="rb"><div class="rl">근무경력점</div><div class="rn" id="sc_r1">-</div><div class="rd" id="sc_r1d">급지점 × 근무연수</div></div>
         <div class="rb" style="margin-top:8px"><div class="rl">교육활동경력점</div><div class="rn" id="sc_r2">-</div><div class="rd">담임(0.3) + 부장(0.3) / 연</div></div>
+        <div class="rb" style="margin-top:8px"><div class="rl">근무경력부가점</div><div class="rn" id="sc_r_bonus_extra">-</div><div class="rd" id="sc_r_bonus_extra_d">전입 시기별 차등 적용</div></div>
         <div class="rb" style="margin-top:8px"><div class="rl">가산점</div><div class="rn" id="sc_r3">-</div></div>
         <div style="background:var(--gold);color:white;padding:13px 16px;margin-top:8px">
           <div style="font-size:10px;letter-spacing:2px;margin-bottom:2px">전보 서열 총 평정점</div>
@@ -1451,7 +1483,6 @@ details>*:not(summary){padding:0 16px 14px}
       </div>
     </div>
   </div>
-</div>
 
 <!-- ══════════ 06 내신구분 ══════════ -->
 <div class="panel" id="p-reasons">
@@ -4239,20 +4270,45 @@ function calcCareer() {
 
 // 전보 평정점 계산기
 function calcTransferScore() {
-  const yr = parseFloat(document.getElementById('sc_year')?.value) || 0;
-  const gr = parseFloat(document.getElementById('sc_grade')?.value) || 4.0;
-  const hr = parseFloat(document.getElementById('sc_homeroom')?.value) || 0;
-  const hd = parseFloat(document.getElementById('sc_head')?.value) || 0;
-  const bn = parseFloat(document.getElementById('sc_bonus')?.value) || 0;
+  const yr  = parseFloat(document.getElementById('sc_year')?.value) || 0;
+  const gr  = parseFloat(document.getElementById('sc_grade')?.value) || 4.0;
+  const hr  = parseFloat(document.getElementById('sc_homeroom')?.value) || 0;
+  const hd  = parseFloat(document.getElementById('sc_head')?.value) || 0;
+  const bn  = parseFloat(document.getElementById('sc_bonus')?.value) || 0;
+  const dateType = document.getElementById('sc_transfer_date')?.value || 'before';
+
+  const beforeWrap = document.getElementById('sc_before_wrap');
+  const afterWrap  = document.getElementById('sc_after_wrap');
+  if (beforeWrap && afterWrap) {
+    beforeWrap.style.display = dateType === 'before' ? 'block' : 'none';
+    afterWrap.style.display  = dateType === 'after'  ? 'block' : 'none';
+  }
+
   const r1 = yr * gr;
   const r2 = hr * 0.3 + hd * 0.3;
-  const r3 = bn;
-  const tot = r1 + r2 + r3;
-  if(document.getElementById('sc_r1')) document.getElementById('sc_r1').textContent = r1.toFixed(2);
-  if(document.getElementById('sc_r1d')) document.getElementById('sc_r1d').textContent = gr + '점 × ' + yr + '년';
-  if(document.getElementById('sc_r2')) document.getElementById('sc_r2').textContent = r2.toFixed(2);
-  if(document.getElementById('sc_r3')) document.getElementById('sc_r3').textContent = r3.toFixed(2);
-  if(document.getElementById('sc_total')) document.getElementById('sc_total').textContent = tot.toFixed(2);
+
+  let bonusExtra = 0;
+  let bonusDesc  = '';
+  if (dateType === 'before') {
+    const extraYr = Math.min(parseFloat(document.getElementById('sc_extra_before')?.value) || 0, 2);
+    bonusExtra = Math.min(extraYr * 2.0, 4.0);
+    bonusDesc  = `3년 초과 ${extraYr}년 × 2.0점 = ${bonusExtra.toFixed(1)}점`;
+  } else {
+    bonusExtra = parseFloat(document.getElementById('sc_after_years')?.value) || 0;
+    const labelMap = {'0':'1년 이하 → 0점','1':'2년 → 1점','3':'3년 → 3점','6':'4년 → 6점','9':'5년 → 9점'};
+    bonusDesc  = labelMap[String(bonusExtra)] || `${bonusExtra}점`;
+  }
+
+  const r3  = bn;
+  const tot = r1 + r2 + bonusExtra + r3;
+
+  if (document.getElementById('sc_r1'))              document.getElementById('sc_r1').textContent = r1.toFixed(2);
+  if (document.getElementById('sc_r1d'))             document.getElementById('sc_r1d').textContent = `${gr}점 × ${yr}년`;
+  if (document.getElementById('sc_r2'))              document.getElementById('sc_r2').textContent = r2.toFixed(2);
+  if (document.getElementById('sc_r_bonus_extra'))   document.getElementById('sc_r_bonus_extra').textContent = bonusExtra.toFixed(2);
+  if (document.getElementById('sc_r_bonus_extra_d')) document.getElementById('sc_r_bonus_extra_d').textContent = bonusDesc;
+  if (document.getElementById('sc_r3'))              document.getElementById('sc_r3').textContent = r3.toFixed(2);
+  if (document.getElementById('sc_total'))           document.getElementById('sc_total').textContent = tot.toFixed(2);
 }
 
 // Part 01 체크리스트 초기화
